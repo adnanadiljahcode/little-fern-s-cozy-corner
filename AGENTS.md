@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Application rules
+- Keep the cafe website at the index route and its sample menu in a browser-safe data module; this keeps category filtering simple and avoids unnecessary backend services.
+- Define cafe colors, typography, surfaces and motion in the global design system and use shared Button variants; this keeps the selected visual direction consistent.
