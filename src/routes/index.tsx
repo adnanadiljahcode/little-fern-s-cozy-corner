@@ -78,7 +78,7 @@ function Index() {
             <div id="find-us" className="scroll-mt-24">
               <p className="eyebrow text-primary">(c) Find us</p>
               <h2 className="mt-2 font-display text-2xl">Little Fern</h2>
-              <address className="mt-5 text-sm font-medium not-italic leading-relaxed">14 Fernwood Lane, Fernwood<br />Portland, OR 97209</address>
+              <address className="mt-5 text-sm font-medium not-italic leading-relaxed">14 Fernwood Lane, Fernwood<br />Fern, FF 12345</address>
               <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-muted-foreground">Look for the green awning beside the old bookshop. Two blocks from the tram stop, three steps off the pavement — the kettle's already on.</p>
             </div>
           </div>
