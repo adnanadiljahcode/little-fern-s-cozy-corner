@@ -19,6 +19,8 @@
  */
 
 @theme inline {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -63,23 +65,23 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --background: oklch(0.960 0.005 196.9);
+  --foreground: oklch(0.254 0.025 195.7);
+  --card: oklch(0.985 0.003 196.9);
+  --card-foreground: var(--foreground);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.484 0.070 166.5);
+  --primary-foreground: var(--background);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
+  --muted-foreground: oklch(0.470 0.022 195.7);
   --accent: oklch(0.968 0.007 247.896);
   --accent-foreground: oklch(0.208 0.042 265.755);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
+  --border: oklch(0.254 0.025 195.7 / 0.10);
   --input: oklch(0.929 0.013 255.508);
   --ring: oklch(0.704 0.04 256.788);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -140,5 +142,30 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    letter-spacing: 0;
   }
+}
+
+html { scroll-behavior: smooth; }
+.brand-name { font-size: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 0; }
+.eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0; }
+.cafe-hero { min-height: 510px; }
+.hero-veil { background: linear-gradient(90deg, color-mix(in oklab, var(--background) 91%, transparent) 0%, color-mix(in oklab, var(--background) 77%, transparent) 34%, color-mix(in oklab, var(--background) 12%, transparent) 70%); }
+.hero-copy { animation: cafe-rise 600ms ease-out both; }
+.hero-line { animation: cafe-line 800ms 300ms ease-out both; }
+.menu-item { min-height: 167px; animation: cafe-rise 350ms ease-out both; transition: background 180ms ease, box-shadow 180ms ease; }
+.menu-item:hover { background: var(--card); box-shadow: 0 4px 16px color-mix(in oklab, var(--primary) 7%, transparent); }
+.menu-grid { min-height: 358px; align-content: start; }
+@keyframes cafe-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes cafe-line { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@media (max-width: 639px) {
+  .cafe-hero { min-height: 490px; }
+  .hero-veil { background: linear-gradient(90deg, color-mix(in oklab, var(--background) 92%, transparent), color-mix(in oklab, var(--background) 70%, transparent) 70%, color-mix(in oklab, var(--background) 30%, transparent)); }
+  .cafe-hero img { object-position: 62% center; }
+  .menu-grid { min-height: 358px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
