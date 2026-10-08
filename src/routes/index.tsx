@@ -93,9 +93,9 @@ function Index() {
               <h2 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Two favourites,<br />on the pass</h2>
               <div className="mt-10 space-y-9">
                 {specials.map((item, i) => <article key={item.name} className={`special-row${i === 1 ? " special-row--ink" : ""}`}>
-                  <div className="flex items-baseline gap-3">
+                  <div className="flex items-start justify-between gap-3 sm:items-baseline">
                     <h3 className="min-w-0 font-display text-2xl">{item.name}</h3>
-                    <span aria-hidden="true" className="menu-leader" />
+                    <span aria-hidden="true" className="menu-leader hidden sm:block" />
                     <span className="special-price shrink-0 text-lg">{item.price}</span>
                   </div>
                   <p className="mt-2 max-w-[48ch] text-sm leading-relaxed text-muted-foreground">{item.description}</p>
