@@ -30,7 +30,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/92 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-border bg-background">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-4">
           <a href="#home" className="brand-name min-w-0 truncate text-foreground">Little Fern</a>
           <nav aria-label="Main navigation" className="hidden items-center gap-5 sm:flex">
