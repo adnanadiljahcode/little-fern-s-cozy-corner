@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { categories, menuItems, type Category } from "@/lib/cafe-menu";
+import { categories, menuItems, specials, type Category } from "@/lib/cafe-menu";
 import cafeWindow from "@/assets/cafe-window.jpg";
 
 export const Route = createFileRoute("/")({
@@ -66,17 +66,32 @@ function Index() {
           </div>
         </section>
 
+        <section id="specials" className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-16">
+          <div className="grid gap-4 border-b border-border pb-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+            <div className="min-w-0"><p className="eyebrow text-primary">(b) Today's specials</p><h2 className="mt-2 font-display text-3xl">Two plates, on the pass</h2></div>
+            <p className="max-w-[34ch] text-sm leading-relaxed text-muted-foreground">Chosen this morning by the kitchen — here until they're gone.</p>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {specials.map((item) => <article key={item.name} className="special-card rounded-3xl p-6 ring-1 ring-border">
+              <div className="flex items-center justify-between gap-3"><span className="special-chip eyebrow rounded-full px-3 py-1 text-primary">Today only</span><span className="eyebrow text-muted-foreground">{item.category}</span></div>
+              <div className="mt-5 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3"><h3 className="font-display text-2xl">{item.name}</h3><span className="special-price shrink-0 font-display text-xl text-primary">{item.price}</span></div>
+              <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+              <p className="mt-5 border-t border-border pt-3 text-xs text-muted-foreground">{item.note}</p>
+            </article>)}
+          </div>
+        </section>
+
         <section className="visit-section mx-auto max-w-6xl px-6 pb-16 pt-8">
           <div className="grid gap-10 sm:grid-cols-2 sm:gap-16">
             <div id="hours" className="scroll-mt-24">
-              <p className="eyebrow text-primary">(b) Opening hours</p>
+              <p className="eyebrow text-primary">(c) Opening hours</p>
               <h2 className="mt-2 font-display text-2xl">When the kettle's on</h2>
               <dl className="mt-6 space-y-3 text-sm">
                 {[['Mon – Fri', '7:00 am – 4:00 pm'], ['Saturday', '8:00 am – 5:00 pm'], ['Sunday', '8:00 am – 3:00 pm']].map(([day, hours]) => <div key={day} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-border pb-3"><dt className="text-muted-foreground">{day}</dt><dd className="font-medium">{hours}</dd></div>)}
               </dl>
             </div>
             <div id="find-us" className="scroll-mt-24">
-              <p className="eyebrow text-primary">(c) Find us</p>
+              <p className="eyebrow text-primary">(d) Find us</p>
               <h2 className="mt-2 font-display text-2xl">Little Fern</h2>
               <address className="mt-5 text-sm font-medium not-italic leading-relaxed">14 Fernwood Lane, Fernwood<br />Fern, FF 12345</address>
               <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-muted-foreground">Look for the green awning beside the old bookshop. Two blocks from the tram stop, three steps off the pavement — the kettle's already on.</p>

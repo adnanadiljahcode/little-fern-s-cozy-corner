@@ -11,3 +11,8 @@ export const menuItems: { name: string; category: Exclude<Category, "All">; pric
   { name: "Almond Croissant", category: "Pastries", price: "$4.50", description: "Twice-baked, frangipane centre, a snow of icing sugar." },
   { name: "Lemon Olive Oil Cake", category: "Pastries", price: "$4.00", description: "Tender crumb, candied peel, a drizzle of grassy olive oil." },
 ];
+
+export const specials: { name: string; category: Exclude<Category, "All">; price: string; description: string; note: string }[] = [
+  { name: "Mushroom Sourdough", category: "Breakfast", price: "$12.00", description: "The pan we've been waiting for: garlic mushrooms folded through cream, a slow poached egg, chives snipped at the pass.", note: "Till 11:00 am · while the pan holds" },
+  { name: "Iced Cardamom Latte", category: "Coffee", price: "$5.00", description: "Green cardamom cracked and steeped overnight, poured over cold brew and clear ice, finished with oat milk.", note: "Two for one · before 9:00 am" },
+];
