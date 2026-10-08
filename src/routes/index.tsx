@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { categories, menuItems, specials, type Category } from "@/lib/cafe-menu";
 import cafeWindow from "@/assets/cafe-window.jpg";
+import flatWhite from "@/assets/menu-flat-white.jpg";
+import sourdough from "@/assets/specials-sourdough.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -16,93 +18,123 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const hours: [string, string][] = [
+  ["Mon – Fri", "7:00 am – 4:00 pm"],
+  ["Saturday", "8:00 am – 5:00 pm"],
+  ["Sunday", "8:00 am – 3:00 pm"],
+];
+
 function Index() {
   const [category, setCategory] = useState<Category>("All");
   const visibleItems = menuItems.filter((item) => category === "All" || item.category === category);
 
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/25">
-      <header className="cafe-header sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-6 py-4 sm:flex sm:justify-between">
-          <a href="#home" className="brand-name min-w-0 truncate text-primary">Little Fern</a>
+    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-4">
+          <a href="#home" className="brand-name min-w-0 truncate text-foreground">Little Fern</a>
           <nav aria-label="Main navigation" className="hidden items-center gap-5 sm:flex">
             <Button asChild variant="navigation"><a href="#menu">Menu</a></Button>
             <Button asChild variant="navigation"><a href="#hours">Hours</a></Button>
             <Button asChild variant="navigation"><a href="#find-us">Find us</a></Button>
           </nav>
-          <Button asChild variant="cafe" className="shrink-0"><a href="#menu">Our menu <span aria-hidden="true">↗</span></a></Button>
+          <Button asChild variant="cafe" className="h-10 shrink-0 px-5 text-[11px] uppercase tracking-widest"><a href="#menu">Our menu <span aria-hidden="true">→</span></a></Button>
         </div>
       </header>
 
       <main>
-        <section id="home" className="cafe-hero relative overflow-hidden">
-          <img src={cafeWindow} alt="Golden afternoon light on a latte, fresh pastry and leafy ferns in our cozy cafe" width={1920} height={1088} fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="hero-veil absolute inset-0" />
-          <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-24 sm:pb-28">
-            <div className="hero-copy max-w-xl">
+        <section id="home" className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-16 pt-10 sm:pb-20">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] lg:gap-14">
+            <div className="hero-copy order-2 lg:order-1">
               <p className="eyebrow text-primary">Neighborhood cafe · Fernwood</p>
-              <h1 className="mt-4 font-display text-6xl leading-[1.05] sm:text-7xl">Little Fern</h1>
-              <h2 className="mt-4 font-display text-3xl leading-tight sm:text-4xl">A warm corner<br />for slow mornings.</h2>
-              <p className="mt-5 max-w-[39ch] text-base leading-relaxed text-foreground/80">Brewed, baked and plated a few steps from your door. Come as you are.</p>
+              <h1 className="mt-4 font-display text-6xl leading-[1.02] sm:text-7xl">Little Fern</h1>
+              <p className="mt-4 max-w-[22ch] font-display text-2xl italic leading-snug text-foreground/90 sm:text-3xl">A warm corner for slow mornings.</p>
+              <p className="mt-5 max-w-[38ch] text-base leading-relaxed text-muted-foreground">Brewed, baked and plated a few steps from your door. Come as you are.</p>
+              <div className="hero-line mt-7 h-px w-40 bg-primary/60" />
             </div>
-            <div className="hero-line mt-7 h-px w-40 bg-primary/60" />
+            <div className="relative order-1 lg:order-2">
+              <img src={cafeWindow} alt="Golden afternoon light on a latte, fresh pastry and leafy ferns in our cozy cafe" width={1920} height={1088} fetchPriority="high" className="photo-card h-[320px] w-full object-cover sm:h-[420px] lg:h-[520px]" />
+              <span className="hero-tag absolute -bottom-4 right-5 bg-primary px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.2em] text-primary-foreground">Kettle’s on</span>
+            </div>
           </div>
         </section>
 
-        <section id="menu" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16">
-          <div className="grid gap-4 border-b border-border pb-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-            <div className="min-w-0"><p className="eyebrow text-primary">(a) The menu</p><h2 className="mt-2 font-display text-3xl">What's on today</h2></div>
-            <p className="max-w-[34ch] text-sm leading-relaxed text-muted-foreground">Good coffee, seasonal plates, and something sweet from the oven.</p>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Filter menu by category">
-            {categories.map((value) => <Button key={value} variant={category === value ? "cafe" : "filter"} onClick={() => setCategory(value)} aria-pressed={category === value}>{value}</Button>)}
-          </div>
-          <div className="menu-grid mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-live="polite" aria-label={`${category} menu items`}>
-            {visibleItems.map((item) => <article key={item.name} className="menu-item rounded-2xl bg-card/70 p-5 ring-1 ring-border backdrop-blur-xl">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3"><span className="eyebrow text-primary">{item.category}</span><span className="shrink-0 text-sm text-muted-foreground">{item.price}</span></div>
-              <h3 className="mt-3 font-display text-lg">{item.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
-            </article>)}
-          </div>
-        </section>
-
-        <section id="specials" className="mx-auto max-w-6xl scroll-mt-24 px-6 pb-16">
-          <div className="grid gap-4 border-b border-border pb-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-            <div className="min-w-0"><p className="eyebrow text-primary">(b) Today's specials</p><h2 className="mt-2 font-display text-3xl">Two plates, on the pass</h2></div>
-            <p className="max-w-[34ch] text-sm leading-relaxed text-muted-foreground">Chosen this morning by the kitchen — here until they're gone.</p>
-          </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {specials.map((item) => <article key={item.name} className="special-card rounded-3xl p-6 ring-1 ring-border">
-              <div className="flex items-center justify-between gap-3"><span className="special-chip eyebrow rounded-full px-3 py-1 text-primary">Today only</span><span className="eyebrow text-muted-foreground">{item.category}</span></div>
-              <div className="mt-5 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3"><h3 className="font-display text-2xl">{item.name}</h3><span className="special-price shrink-0 font-display text-xl text-primary">{item.price}</span></div>
-              <p className="mt-3 max-w-[46ch] text-sm leading-relaxed text-muted-foreground">{item.description}</p>
-              <p className="mt-5 border-t border-border pt-3 text-xs text-muted-foreground">{item.note}</p>
-            </article>)}
+        <section id="menu" className="band-sand scroll-mt-24 py-16 sm:py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-end lg:gap-14">
+              <img src={flatWhite} alt="A flat white with fern art in a handmade ceramic cup on our wooden counter" width={1280} height={864} loading="lazy" className="photo-card h-44 w-full object-cover sm:h-56" />
+              <div className="min-w-0">
+                <p className="eyebrow text-primary">(a) The menu</p>
+                <h2 className="mt-2 font-display text-3xl sm:text-4xl">What’s on today</h2>
+                <p className="mt-3 max-w-[42ch] font-display text-lg italic leading-relaxed text-muted-foreground">Good coffee, seasonal plates, and something sweet from the oven.</p>
+              </div>
+            </div>
+            <div className="pill-scroll no-scrollbar mt-8 -mx-6 flex gap-2 overflow-x-auto px-6 pb-1 sm:mx-0 sm:flex-wrap sm:px-0 sm:pb-0 sm:[mask-image:none] [-webkit-mask-image:none]" role="group" aria-label="Filter menu by category">
+              {categories.map((value) => <Button key={value} className="h-10 shrink-0 px-5" variant={category === value ? "cafe" : "filter"} onClick={() => setCategory(value)} aria-pressed={category === value}>{value}</Button>)}
+            </div>
+            <div className="menu-grid mt-8 grid gap-4 sm:grid-cols-2" aria-live="polite" aria-label={`${category} menu items`}>
+              {visibleItems.map((item) => <article key={item.name} className="menu-item rounded-2xl bg-card/80 p-5 ring-1 ring-border/70">
+                <span className="eyebrow text-primary">{item.category}</span>
+                <div className="mt-2 flex items-baseline gap-3">
+                  <h3 className="min-w-0 font-display text-xl leading-snug">{item.name}</h3>
+                  <span aria-hidden="true" className="menu-leader" />
+                  <span className="special-price shrink-0 text-base">{item.price}</span>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+              </article>)}
+            </div>
           </div>
         </section>
 
-        <section className="visit-section mx-auto max-w-6xl px-6 pb-16 pt-8">
-          <div className="grid gap-10 sm:grid-cols-2 sm:gap-16">
+        <section id="specials" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-16 sm:py-20">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-16">
+            <div className="min-w-0">
+              <p className="eyebrow text-primary">(b) Today’s specials</p>
+              <h2 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Two favourites,<br />on the pass</h2>
+              <div className="mt-10 space-y-9">
+                {specials.map((item, i) => <article key={item.name} className={`special-row${i === 1 ? " special-row--ink" : ""}`}>
+                  <div className="flex items-baseline gap-3">
+                    <h3 className="min-w-0 font-display text-2xl">{item.name}</h3>
+                    <span aria-hidden="true" className="menu-leader" />
+                    <span className="special-price shrink-0 text-lg">{item.price}</span>
+                  </div>
+                  <p className="mt-2 max-w-[48ch] text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-3">
+                    <span className="special-chip eyebrow rounded-md px-2 py-1 text-foreground/80">{item.category}</span>
+                    <span className="font-display text-sm italic text-muted-foreground">{item.note}</span>
+                  </div>
+                </article>)}
+              </div>
+            </div>
+            <div className="lg:pt-4">
+              <img src={sourdough} alt="Our mushroom sourdough: garlic mushrooms, a just-broken poached egg and snipped chives" width={912} height={1200} loading="lazy" className="photo-tilt h-72 w-full object-cover sm:h-96 lg:h-[420px]" />
+            </div>
+          </div>
+        </section>
+
+        <section className="band-ink px-6 py-14 sm:px-10 sm:py-16">
+          <div className="mx-auto grid max-w-6xl gap-12 sm:grid-cols-2 sm:gap-16">
             <div id="hours" className="scroll-mt-24">
-              <p className="eyebrow text-primary">(c) Opening hours</p>
-              <h2 className="mt-2 font-display text-2xl">When the kettle's on</h2>
+              <p className="eyebrow text-primary-on-ink">(c) Opening hours</p>
+              <h2 className="mt-2 font-display text-2xl sm:text-3xl">When the kettle’s on</h2>
               <dl className="mt-6 space-y-3 text-sm">
-                {[['Mon – Fri', '7:00 am – 4:00 pm'], ['Saturday', '8:00 am – 5:00 pm'], ['Sunday', '8:00 am – 3:00 pm']].map(([day, hours]) => <div key={day} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-border pb-3"><dt className="text-muted-foreground">{day}</dt><dd className="font-medium">{hours}</dd></div>)}
+                {hours.map(([day, time]) => <div key={day} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-surface-ink-foreground/15 pb-3"><dt className="text-surface-ink-foreground/70">{day}</dt><dd className="font-semibold">{time}</dd></div>)}
               </dl>
             </div>
             <div id="find-us" className="scroll-mt-24">
-              <p className="eyebrow text-primary">(d) Find us</p>
-              <h2 className="mt-2 font-display text-2xl">Little Fern</h2>
-              <address className="mt-5 text-sm font-medium not-italic leading-relaxed">14 Fernwood Lane, Fernwood<br />Fern, FF 12345</address>
-              <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-muted-foreground">Look for the green awning beside the old bookshop. Two blocks from the tram stop, three steps off the pavement — the kettle's already on.</p>
+              <p className="eyebrow text-primary-on-ink">(d) Find us</p>
+              <h2 className="mt-2 font-display text-2xl sm:text-3xl">Little Fern</h2>
+              <address className="mt-5 text-sm font-semibold not-italic leading-relaxed">14 Fernwood Lane, Fernwood<br />Fern, FF 12345</address>
+              <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-surface-ink-foreground/70">Look for the terracotta awning beside the old bookshop. Two blocks from the tram stop, three steps off the pavement — the kettle’s already on.</p>
             </div>
           </div>
         </section>
       </main>
-      <footer className="border-t border-border bg-card/40">
-        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 px-6 py-8 sm:flex-row sm:items-center">
-          <a href="#home" className="brand-name text-primary">Little Fern</a>
-          <p className="text-sm text-muted-foreground">Brewed, baked & plated daily · 14 Fernwood Lane</p>
+
+      <footer className="bg-surface-ink px-6 pb-10 sm:px-10">
+        <div className="mx-auto flex max-w-6xl flex-col justify-between gap-4 border-t border-surface-ink-foreground/10 pt-8 sm:flex-row sm:items-center">
+          <a href="#home" className="brand-name text-surface-ink-foreground">Little Fern</a>
+          <p className="text-sm text-surface-ink-foreground/60">Brewed, baked & plated daily · 14 Fernwood Lane</p>
         </div>
       </footer>
     </div>

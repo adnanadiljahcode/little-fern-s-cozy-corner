@@ -9,8 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        cafe: "rounded-full bg-primary text-primary-foreground ring-1 ring-border hover:bg-primary/90",
-        filter: "rounded-full bg-card/70 text-muted-foreground ring-1 ring-border backdrop-blur-xl hover:bg-card hover:text-foreground",
+        cafe: "rounded-full bg-surface-ink text-surface-ink-foreground ring-1 ring-surface-ink hover:bg-surface-ink/90",
+        filter: "rounded-full bg-card/70 text-muted-foreground ring-1 ring-border hover:bg-card hover:text-foreground",
         navigation: "text-muted-foreground hover:text-primary bg-transparent",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
