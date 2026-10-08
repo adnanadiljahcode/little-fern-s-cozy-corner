@@ -30,7 +30,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/92 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-4">
           <a href="#home" className="brand-name min-w-0 truncate text-foreground">Little Fern</a>
           <nav aria-label="Main navigation" className="hidden items-center gap-5 sm:flex">
@@ -93,9 +93,9 @@ function Index() {
               <h2 className="mt-2 font-display text-3xl leading-tight sm:text-4xl">Two favourites,<br />on the pass</h2>
               <div className="mt-10 space-y-9">
                 {specials.map((item, i) => <article key={item.name} className={`special-row${i === 1 ? " special-row--ink" : ""}`}>
-                  <div className="flex items-start justify-between gap-3 sm:items-baseline">
-                    <h3 className="min-w-0 font-display text-2xl">{item.name}</h3>
-                    <span aria-hidden="true" className="menu-leader hidden sm:block" />
+                  <div className="flex items-baseline gap-3">
+                    <h3 className="min-w-0 font-display text-xl leading-snug sm:text-2xl">{item.name}</h3>
+                    <span aria-hidden="true" className="menu-leader" />
                     <span className="special-price shrink-0 text-lg">{item.price}</span>
                   </div>
                   <p className="mt-2 max-w-[48ch] text-sm leading-relaxed text-muted-foreground">{item.description}</p>
