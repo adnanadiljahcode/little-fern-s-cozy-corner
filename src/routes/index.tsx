@@ -116,32 +116,32 @@ function Index() {
       <footer className="band-ink px-6 pt-16 pb-12 sm:px-10 sm:pt-20">
         <div className="mx-auto max-w-6xl">
           {/* Main Footer Grid: Hours & Location */}
-          <div className="grid gap-12 sm:grid-cols-2 sm:gap-16">
+          <div className="grid grid-cols-2 gap-4 sm:gap-12">
             <div id="hours" className="scroll-mt-24">
-              <p className="eyebrow text-primary-on-ink">(c) Opening hours</p>
-              <h2 className="mt-2 font-display text-2xl sm:text-3xl">When the kettle’s on</h2>
-              <dl className="mt-6 space-y-3 text-sm">
+              <p className="eyebrow text-primary-on-ink text-xs">(c) Opening hours</p>
+              <h2 className="mt-1 font-display text-base sm:text-xl">When the kettle’s on</h2>
+              <dl className="mt-3 space-y-1.5 text-xs sm:text-sm">
                 {hours.map(([day, time]) => (
-                  <div key={day} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 border-b border-surface-ink-foreground/15 pb-3">
+                  <div key={day} className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 border-b border-surface-ink-foreground/15 pb-1.5">
                     <dt className="text-surface-ink-foreground/70">{day}</dt>
                     <dd className="font-semibold">{time}</dd>
                   </div>
                 ))}
               </dl>
             </div>
-
+            
             <div id="find-us" className="scroll-mt-24">
-              <p className="eyebrow text-primary-on-ink">(d) Find us</p>
-              <h2 className="mt-2 font-display text-2xl sm:text-3xl">Little Fern</h2>
-              <address className="mt-5 text-sm font-semibold not-italic leading-relaxed">
+              <p className="eyebrow text-primary-on-ink text-xs">(d) Find us</p>
+              <h2 className="mt-1 font-display text-base sm:text-xl">Little Fern</h2>
+              <address className="mt-3 text-xs sm:text-sm font-semibold not-italic leading-relaxed">
                 14 Fernwood Lane, Fernwood<br />Fern, FF 12345
               </address>
-              <p className="mt-4 max-w-[44ch] text-sm leading-relaxed text-surface-ink-foreground/70">
-                Look for the terracotta awning beside the old bookshop. Two blocks from the tram stop, three steps off the pavement — the kettle’s already on.
+              <p className="mt-2 hidden text-xs leading-relaxed text-surface-ink-foreground/70 sm:block sm:text-sm">
+                Look for the terracotta awning beside the old bookshop. Two blocks from the tram stop.
               </p>
             </div>
           </div>
-
+          
           {/* Sub-footer divider & signature */}
           <div className="mt-16 flex flex-col justify-between gap-4 border-t border-surface-ink-foreground/15 pt-8 sm:flex-row sm:items-center">
             <a href="#home" className="brand-name text-surface-ink-foreground">Little Fern</a>
